@@ -1,5 +1,5 @@
 import React from 'react'
-
+var teste = 8;
 const Form = () => {
     const handleMyEvent = (e) =>{
       console.log(e)
@@ -13,9 +13,10 @@ const redeButton = (x) =>{
       }
     }
   return (
+    <>
     <div>
       <div>
-        <button onClick={handleMyEvent}>click aqui</button>
+        <button onClick={handleMyEvent}>Click aqui</button>
       </div>
       <div>
         <button onClick={() =>{console.log("Yes! Apertou em mim.!!!")}}>Click em mim também</button>
@@ -25,14 +26,20 @@ const redeButton = (x) =>{
           if (true){
             console.log("Isso não deveria ter acontecer!")
             }
-        }}>Será que vocÊ clicaria aqui</button>
+        }}>Será que você clicaria aqui</button>
       </div>
       <div>
         {redeButton(true)}
         {redeButton(false)}
 
       </div>
+      <div>
+        <strong>Valor:</strong>{teste}
+        <button onClick={() => {teste = 12; console.log(teste)}}>Aperte e mude</button>
+        <strong>Valor:</strong>{teste}
+      </div>
     </div>
+    </>
   )
 }
 
