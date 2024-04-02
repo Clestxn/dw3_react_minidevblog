@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 
 const FormHooks = () => {
-    const [list] = useState(['leticia', 'Enzo', 'Kayro', 'Gustavo'])
+    const [list] = useState(['Leticia', 'Enzo', 'Kayro', 'Gustavo'])
     const [number, setNumber] = useState(15)
-    const [user] = useState(
+    const [user, setUser] = useState(
         [
             {id:1, nome: "José Carlos", idade: 44},
             {id:2, nome: "Maria Rosa", idade: 25},
@@ -12,9 +12,18 @@ const FormHooks = () => {
             {id:5, nome: "Marcos Daniel", idade: 25},
             {id:6, nome: "Victor Hugo", idade: 34},
             {id:7, nome: "Viktória Kamilly", idade: 19},
-            {id:8, nome: "Pedro Lucas", idade: 37}
+            {id:8, nome: "Pedro Lucas", idade: 37},
         ]
+
     )
+
+    const deleteRandomUser = () => {  
+        const randomNumber = Math.floor(Math.random() * user.length)
+        setUser((prevUsers) => {
+            return prevUsers.filter((user) => user.id !== randomNumber )
+        })
+    }
+
     return (
         <>
             <div>
@@ -23,6 +32,7 @@ const FormHooks = () => {
                 </p>
                 <button onClick={() => {setNumber(32); console.log(number)}}>Mudar</button>
             </div>
+
             <div>
                 <ul>
                     {
@@ -32,25 +42,31 @@ const FormHooks = () => {
                     }
                 </ul>
             </div>
+
             <div>
-            <table>
+                <table>
                     <tr>
-                        <td>
-                            {
-                                user.map((item, i) =>(
-                                    <tr key={i}>
-                                        <td>{item.id}</td>
-                                        <td>{item.nome}</td>
-                                        <td>{item.idade}</td>
-                                    </tr>
-                                ))
-                            }
-                        </td>
+                        <th>ID</th> 
+                        <th>Nome</th>
+                        <th>Idade</th>
                     </tr>
+
+                    {
+                        user.map((pessoa, i) =>(
+                            <tr key={i}>
+
+                                <td>{pessoa.id}</td>
+                                <td>{pessoa.nome}</td>
+                                <td>{pessoa.idade}</td>
+                            </tr>
+                        ))
+                    }
                 </table>
+                <button onClick = {deleteRandomUser}>Excluir Randomicamente</button>
             </div>
         </>
     )
+    
 }
 
 export default FormHooks
