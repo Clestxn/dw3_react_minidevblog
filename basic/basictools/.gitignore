@@ -8,9 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
-*.local
+./dw3_react_minidevblog/minidevblog/src/firebase/firebaseAdminKey.json
 
 # Editor directories and files
 .vscode/*
