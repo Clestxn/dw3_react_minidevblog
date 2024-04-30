@@ -1,29 +1,33 @@
 import React from "react";
-import styles from "./Login.module.css";
 import { useState, useEffect } from "react";
 import { userAuthentication } from "../../hooks/userAuthentication";
-import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+    const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
 
-    const { login, error: authError, loading } = userAuthentication()
-    const navigate = useNavigate()
+    const { createUser, error: authError, loading } = userAuthentication()
 
     const handlerSubmit = async (e) => {
         e.preventDefault()
         setError('')
         const user = {
+            displayName,
             email,
             password
         }
 
-        const res = await login(user)
+        if (password !== confirmPassword) {
+            setError('As senhas precisam ser iguais')
+            return
+        }
+
+        const res = await createUser(user)
 
         console.table(res)
-        navigate("/post/create")
     }
 
     useEffect(() => {
@@ -31,11 +35,21 @@ const Login = () => {
             setError(authError)
         }
     }, [authError])
+
     return (
-        <div className={styles.login}>
-            <h1>Entrar no MiniBlogDev</h1>
-            <p>Entre no ambiente, para compartilhar suas ideias</p>
+        <div>
+            <h1>Registrar-se</h1>
             <form onSubmit={handlerSubmit}>
+                <label>
+                    <span>Nome: </span>
+                    <input 
+                    type="text"
+                    name="displayName"
+                    required
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder="Digite seu nome"></input>
+                </label>
                 <label>
                     <span>Email: </span>
                     <input 
@@ -56,7 +70,17 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Digite sua senha"></input>
                 </label>
-                {!loading && <button className="btn">Login</button>}
+                <label>
+                    <span>Confirmar senha: </span>
+                    <input 
+                    type="password"
+                    name="confirmPassword"
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Digite sua senha novamente"></input>
+                </label>
+                {!loading && <button className="btn">Cadastrar</button>}
                 {loading && <button className="btn" disabled>Aguarde...</button>}
                 {error && <p className="error">{error}</p>}
             </form>
@@ -64,4 +88,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register
