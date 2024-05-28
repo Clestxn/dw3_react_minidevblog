@@ -1,4 +1,4 @@
-import { db } from'../firebasee/config'
+import { db } from'../firebase/config'
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -10,7 +10,7 @@ import { useState, useEffect }from 'react'
 export const userAuthentication = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
-    const [cancelled, setCancelled] = useState (fal)
+    const [cancelled, setCancelled] = useState (false)
 
     const auth = getAuth()
 
